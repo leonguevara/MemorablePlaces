@@ -22,8 +22,25 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         manager = CLLocationManager()
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest
-        manager.requestWhenInUseAuthorization()
-        manager.startUpdatingLocation()
+
+        if activePlace == -1 {
+            manager.requestWhenInUseAuthorization()
+            manager.startUpdatingLocation()
+        } else {
+            let latitude = NSString(string: places[activePlace]["lat"]!).doubleValue
+            let longitude = NSString(string: places[activePlace]["lon"]!).doubleValue
+            
+            let coordinate : CLLocationCoordinate2D = CLLocationCoordinate2DMake(latitude, longitude)
+            let latDelta : CLLocationDegrees = 0.01
+            let lonDelta : CLLocationDegrees = 0.01
+            let span : MKCoordinateSpan = MKCoordinateSpanMake(latDelta, lonDelta)
+            let region : MKCoordinateRegion = MKCoordinateRegionMake(coordinate, span)
+            self.myMap.setRegion(region, animated: true)
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = coordinate
+            annotation.title = places[activePlace]["name"]
+            self.myMap.addAnnotation(annotation)
+        }
         
         let uilpgr = UILongPressGestureRecognizer(target: self, action: "action:")
         
@@ -59,6 +76,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 if title == "" {
                     title = "Added \(NSDate())"
                 }
+                
+                places.append(["name":title,"lat":"\(newCoordinate.latitude)","lon":"\(newCoordinate.longitude)"])
                 
                 let annotation = MKPointAnnotation()
                 annotation.coordinate = newCoordinate

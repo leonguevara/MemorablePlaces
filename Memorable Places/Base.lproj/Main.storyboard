@@ -54,6 +54,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="mD5-ka-4Xe"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -62,9 +65,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Root View Controller" id="mMb-e1-iTK">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="0cQ-38-FGv">
+                        <barButtonItem key="rightBarButtonItem" title="+" id="0cQ-38-FGv">
                             <connections>
-                                <segue destination="BYZ-38-t0r" kind="show" id="i78-JF-zIr"/>
+                                <segue destination="BYZ-38-t0r" kind="show" identifier="newPlace" id="i78-JF-zIr"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -90,4 +93,7 @@
             <point key="canvasLocation" x="25" y="536"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="i78-JF-zIr"/>
+    </inferredMetricsTieBreakers>
 </document>
